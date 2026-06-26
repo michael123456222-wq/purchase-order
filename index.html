@@ -181,43 +181,43 @@
 </header>
 
 <div class="main-container">
-    <div id="emptyCatalogAlert" class="alert alert-warning" style="display:none;">⚠️ <strong>产品目录尚未上传。</strong> 请联系管理员上传产品目录。</div>
+    <div id="emptyCatalogAlert" class="alert alert-warning" style="display:none;">⚠️ <strong>产品目录尚未加载。</strong> 正在尝试从服务器同步...</div>
 
     <div class="card">
-         <div class="card-header"><div class="icon-circle">📋</div><h2>采购订单</h2><span class="badge">客户填写</span></div>
+        <div class="card-header"><div class="icon-circle">📋</div><h2>采购订单</h2><span class="badge">客户填写</span></div>
         <form id="orderForm" novalidate>
             <div class="form-grid">
                 <div class="form-group"><label><span class="required-star">*</span> 下单日期</label><input type="date" id="orderDate" required></div>
                 <div class="form-group"><label><span class="required-star">*</span> 收货公司</label><input type="text" id="receiveCompany" placeholder="请输入收货公司全称" required></div>
             </div>
             <div class="form-grid">
-                 <div class="form-group full-width"><label><span class="required-star">*</span> 收货地址</label><input type="text" id="receiveAddress" placeholder="请输入详细收货地址" required></div>
+                <div class="form-group full-width"><label><span class="required-star">*</span> 收货地址</label><input type="text" id="receiveAddress" placeholder="请输入详细收货地址" required></div>
             </div>
             <div class="form-grid">
-                <div class="form-group"><label><span class="required-star">*</span> 存货名称</label><select id="productName" required disabled><option value="">-- 请先选择 --</option></select></div>
+                <div class="form-group"><label><span class="required-star">*</span> 存货名称</label><select id="productName" required disabled><option value="">-- 正在读取云端目录 --</option></select></div>
                 <div class="form-group"><label><span class="required-star">*</span> 品牌</label><select id="brand" required disabled><option value="">-- 请先选择存货名称 --</option></select></div>
-             </div>
+            </div>
             <div class="form-grid">
                 <div class="form-group"><label><span class="required-star">*</span> 规格型号</label><select id="specModel" required disabled><option value="">-- 请先选择品牌 --</option></select></div>
                 <div class="form-group"><label>计量单位</label><input type="text" id="unit" disabled placeholder="自动匹配" readonly></div>
             </div>
             <div class="form-grid">
-                 <div class="form-group">
+                <div class="form-group">
                     <label><span class="required-star">*</span> 数量</label>
                     <div class="input-with-suffix"><input type="number" id="quantity" placeholder="请输入数量" required disabled><span class="input-suffix" id="unitSuffix"></span></div>
                     <span class="field-hint" id="quantityHint">请先选择产品</span>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <label>单价（元）</label>
                     <input type="number" id="unitPrice" placeholder="自动匹配" readonly disabled>
                     <span class="field-hint" id="priceHint">根据目录自动匹配</span>
                 </div>
-             </div>
+            </div>
             <div class="form-grid">
                 <div class="form-group">
                     <label>总价（元）</label>
                     <input type="number" id="totalPrice" placeholder="自动计算" readonly>
-                 </div>
+                </div>
             </div>
             <div class="btn-row">
                 <button type="submit" class="btn btn-primary" id="submitBtn" disabled>➕ 提交该笔订单</button>
@@ -227,7 +227,7 @@
     </div>
 
     <div class="card">
-         <div class="card-header"><div class="icon-circle">📄</div><h2>已提交订单明细</h2><span class="badge" id="orderCountBadge">0 笔</span></div>
+        <div class="card-header"><div class="icon-circle">📄</div><h2>已提交订单明细</h2><span class="badge" id="orderCountBadge">0 笔</span></div>
         <div class="table-wrap" style="max-height:450px;overflow-y:auto;">
             <table id="submittedOrdersTable">
                 <thead><tr><th>下单日期</th><th>收货公司</th><th>收货地址</th><th>存货名称</th><th>品牌</th><th>规格型号</th><th>计量单位</th><th>数量</th><th>单价</th><th>总价</th></tr></thead>
@@ -235,33 +235,27 @@
             </table>
         </div>
         <div class="btn-row" style="justify-content:flex-end;">
-             <button class="btn btn-primary" id="exportOrdersBtn">📤 导出 Excel</button>
+            <button class="btn btn-primary" id="exportOrdersBtn">📤 导出 Excel</button>
         </div>
     </div>
 
     <div class="admin-entry"><span id="adminEntryLink">⚙️ 管理入口</span></div>
 </div>
 
-<!-- 管理员登录 -->
 <div class="modal-overlay hidden" id="adminLoginModal">
     <div class="modal-dialog" style="max-width:420px"><div class="modal-header"><h3>🔐 管理员登录</h3><button class="modal-close" id="closeLoginModal">✕</button></div><div class="modal-body"><div class="password-input-row"><input type="password" id="adminPasswordInput" placeholder="请输入管理员密码"><button class="btn btn-primary btn-sm" id="confirmLoginBtn">登录</button></div><p id="loginError" style="color:#d93025;font-size:0.8rem;margin-top:8px;"></p></div></div>
 </div>
-<!-- 管理员面板 -->
 <div class="modal-overlay hidden" id="adminPanelModal">
     <div class="modal-dialog"><div class="modal-header"><h3>🛠️ 管理员面板</h3><button class="modal-close" id="closeAdminPanel">✕</button></div><div class="modal-body">
-        <div class="section-title">📁 上传产品目录</div>
-        <p style="font-size:0.8rem; color:var(--danger); margin-bottom:10px; background:var(--danger-light); padding:8px; border-radius:6px;">
-            💡 <strong>提示：</strong>当前已启用云端静态数据模式。如果您在此面板直接导入 Excel，数据<strong>仅在当前浏览器终端生效</strong>。若要实现“全网所有终端同步更新”，请使用专门的转换工具生成 <code>catalog.json</code>，然后与网页一起重新上传发布。
-        </p>
-        <div class="upload-zone" id="uploadZone"><div class="upload-icon">📤</div><p>点击此处或拖拽文件</p><p class="file-types">支持 CSV / Excel (.xlsx, .xls)</p><input type="file" id="catalogFileInput" accept=".csv,.xlsx,.xls"></div>
+        <div class="section-title" style="color:var(--gray-600);font-size:0.85rem;margin-bottom:10px;">💡 提示：系統已改為自動讀取同目錄下的 <strong>catalog.json</strong> 檔案。你仍可在下方臨時覆蓋上傳。</div>
+        <div class="upload-zone" id="uploadZone"><div class="upload-icon">📤</div><p>點擊此處或拖拽文件臨時覆蓋</p><p class="file-types">支持 CSV / Excel (.xlsx, .xls)</p><input type="file" id="catalogFileInput" accept=".csv,.xlsx,.xls"></div>
         <p style="font-size:0.75rem;margin-top:6px;">目录需包含列：<strong>存货名称, 规格型号, 计量单位, 品牌, 起订量, 倍数, 参考单价</strong> <a href="#" id="downloadTemplate" style="color:#1a73e8;">下载模板</a></p>
-        <div class="section-title">📋 当前目录数据（共 <span id="catalogCount">0</span> 条）</div>
+        <div class="section-title">📋 当前加载的目录数据（共 <span id="catalogCount">0</span> 条）</div>
         <div class="table-wrap" style="max-height:300px;overflow-y:auto;"><table><thead><tr><th>存货名称</th><th>规格型号</th><th>计量单位</th><th>品牌</th><th>起订量</th><th>倍数</th><th>参考单价</th></tr></thead><tbody id="catalogTableBody"></tbody></table></div>
-        <div class="btn-row"><button class="btn btn-outline btn-sm" id="clearCatalogBtn">🗑️ 清空目录</button><button class="btn btn-outline btn-sm" id="changePasswordBtn">🔑 修改密码</button></div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" id="clearCatalogBtn">🗑️ 清空緩存</button><button class="btn btn-outline btn-sm" id="changePasswordBtn">🔑 修改密码</button></div>
         <p id="adminActionMsg" style="font-size:0.8rem;margin-top:8px;"></p>
     </div></div>
 </div>
-<!-- 修改密码 -->
 <div class="modal-overlay hidden" id="changePasswordModal">
     <div class="modal-dialog" style="max-width:400px"><div class="modal-header"><h3>🔑 修改密码</h3><button class="modal-close" id="closeChangePasswordModal">✕</button></div><div class="modal-body"><input type="password" id="oldPasswordInput" placeholder="当前密码"><br><br><input type="password" id="newPasswordInput" placeholder="新密码（至少4位）"><br><br><input type="password" id="confirmNewPasswordInput" placeholder="确认新密码"><br><br><button class="btn btn-primary btn-sm" id="saveNewPasswordBtn">保存</button><p id="changePwdMsg" style="font-size:0.8rem;"></p></div></div>
 </div>
@@ -271,7 +265,6 @@
 <script>
     (function() {
         const STORAGE_KEY_CATALOG = 'purchase_order_catalog_final';
-        const STORAGE_KEY_ORDERS = 'purchase_order_orders_final';
         const STORAGE_KEY_ADMIN_PWD = 'purchase_order_admin_password_final';
         const DEFAULT_PASSWORD = 'admin123';
 
@@ -290,31 +283,35 @@
 
         async function init() {
             orderDate.value = new Date().toISOString().split('T')[0];
-            await loadCatalog();
+            await loadCatalogFromCloud();
             updateUI();
             bindEvents();
         }
 
-        async function loadCatalog() {
+        // 新增核心邏輯：自動從雲端同目錄下抓取 catalog.json
+        async function loadCatalogFromCloud() {
             try {
-                // 优先：从云端（网页同级目录）调取 catalog.json 文件
                 const response = await fetch('catalog.json');
                 if (response.ok) {
-                    catalogData = await response.json();
-                    console.log('成功从云端加载 catalog.json');
-                    return;
+                    const data = await response.json();
+                    if (Array.isArray(data) && data.length > 0) {
+                        catalogData = data;
+                        showToast('成功從雲端同步最新產品目錄', 'success');
+                        return;
+                    }
                 }
-            } catch (error) {
-                console.error('从云端获取 catalog.json 失败，尝试读取本地缓存:', error);
+            } catch (e) {
+                console.warn('雲端自動抓取 catalog.json 失敗，改為讀取瀏覽器本地緩存:', e);
             }
-            
-            // 备用方案：如果云端文件不存在，读取浏览器 localStorage 缓存
+
+            // 備用方案：如果雲端找不到檔案，讀取手動上傳過的緩存
             try { 
                 catalogData = JSON.parse(localStorage.getItem(STORAGE_KEY_CATALOG)) || []; 
             } catch { 
                 catalogData = []; 
             }
         }
+
         function saveCatalog() { localStorage.setItem(STORAGE_KEY_CATALOG, JSON.stringify(catalogData)); }
 
         function updateUI() {
@@ -338,33 +335,24 @@
         }
 
         function clearAll() {
-            productName.innerHTML = '<option value="">-- 请先选择 --</option>';
+            productName.innerHTML = '<option value="">-- 请选择 --</option>';
             brand.innerHTML = '<option value="">-- 请先选择存货名称 --</option>';
             specModel.innerHTML = '<option value="">-- 请先选择品牌 --</option>';
-            unit.value = '';
-            quantity.value = '';
-            unitPrice.value = '';
-            totalPrice.value = '';
-            unitSuffix.textContent = '';
-            quantityHint.textContent = '请先选择产品';
-            priceHint.textContent = '根据目录自动匹配';
+            unit.value = ''; quantity.value = ''; unitPrice.value = ''; totalPrice.value = '';
+            unitSuffix.textContent = ''; quantityHint.textContent = '请先选择产品'; priceHint.textContent = '根据目录自动匹配';
             currentRow = null;
-            brand.disabled = true;
-            specModel.disabled = true;
-            quantity.disabled = true;
-            unitPrice.disabled = true;
-            submitBtn.disabled = true;
+            brand.disabled = true; specModel.disabled = true; quantity.disabled = true; unitPrice.disabled = true; submitBtn.disabled = true;
         }
 
         function populateProductName() {
             if (catalogData.length === 0) {
-                productName.innerHTML = '<option value="">-- 请先选择 --</option>';
+                productName.innerHTML = '<option value="">-- 暫無有效目錄 --</option>';
                 productName.disabled = true;
                 return;
             }
             productName.disabled = false;
-            const names = [...new Set(catalogData.map(r => r['存货名称']).filter(Boolean))].sort();
-            productName.innerHTML = '<option value="">-- 请先选择 --</option>';
+            const names = [...new Set(catalogData.map(r => r['存货名称'] || r['存貨名稱']).filter(Boolean))].sort();
+            productName.innerHTML = '<option value="">-- 请选择 --</option>';
             names.forEach(n => {
                 const opt = document.createElement('option');
                 opt.value = n; opt.textContent = n; productName.appendChild(opt);
@@ -378,97 +366,76 @@
             if (catalogData.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="7">暂无目录数据</td></tr>';
             } else {
-                tbody.innerHTML = catalogData.map(r => `
-                    <tr><td>${esc(r['存货名称'])}</td><td>${esc(r['规格型号'])}</td><td>${esc(r['计量单位'])}</td>
-                    <td>${esc(r['品牌'])}</td><td>${r['起订量']||1}</td><td>${r['倍数']||1}</td><td>${r['参考单价']||'-'}</td></tr>
-                `).join('');
+                tbody.innerHTML = catalogData.map(r => {
+                    const name = r['存货名称'] || r['存貨名稱'] || '';
+                    const spec = r['规格型号'] || r['規格型號'] || '';
+                    const unitStr = r['计量单位'] || r['計量單位'] || '';
+                    const b = r['品牌'] || '';
+                    return `<tr><td>${esc(name)}</td><td>${esc(spec)}</td><td>${esc(unitStr)}</td>
+                    <td>${esc(b)}</td><td>${r['起订量']||1}</td><td>${r['倍数']||1}</td><td>${r['参考单价']||'-'}</td></tr>`;
+                }).join('');
             }
         }
 
         function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
         function updateTotalPrice() {
-            const q = parseFloat(quantity.value);
-            const p = parseFloat(unitPrice.value);
-            if (!isNaN(q) && !isNaN(p) && q > 0 && p >= 0) {
-                totalPrice.value = (q * p).toFixed(2);
-            } else {
-                totalPrice.value = '';
-            }
+            const q = parseFloat(quantity.value); const p = parseFloat(unitPrice.value);
+            if (!isNaN(q) && !isNaN(p) && q > 0 && p >= 0) { totalPrice.value = (q * p).toFixed(2); } else { totalPrice.value = ''; }
         }
 
         productName.addEventListener('change', function() {
             if (!this.value) {
                 brand.innerHTML = '<option value="">-- 请先选择存货名称 --</option>'; brand.disabled = true;
                 specModel.innerHTML = '<option value="">-- 请先选择品牌 --</option>'; specModel.disabled = true;
-                 clearProductFields();
-                return;
+                clearProductFields(); return;
             }
-            const brands = [...new Set(catalogData.filter(r => r['存货名称']===this.value).map(r=>r['品牌']).filter(Boolean))].sort();
+            const brands = [...new Set(catalogData.filter(r => (r['存货名称']||r['存貨名稱'])===this.value).map(r=>r['品牌']).filter(Boolean))].sort();
             brand.innerHTML = '<option value="">-- 请选择品牌 --</option>';
             brands.forEach(b => { const opt = document.createElement('option'); opt.value = b; opt.textContent = b; brand.appendChild(opt); });
-             brand.disabled = false;
+            brand.disabled = false;
             specModel.innerHTML = '<option value="">-- 请先选择品牌 --</option>'; specModel.disabled = true;
             clearProductFields();
         });
+
         brand.addEventListener('change', function() {
             if (!this.value || !productName.value) {
                 specModel.innerHTML = '<option value="">-- 请先选择品牌 --</option>'; specModel.disabled = true;
-                clearProductFields();
-                return;
+                clearProductFields(); return;
             }
-            const specs = [...new Set(catalogData.filter(r => r['存货名称']===productName.value && r['品牌']===this.value).map(r=>r['规格型号']).filter(Boolean))].sort();
+            const specs = [...new Set(catalogData.filter(r => (r['存货名称']||r['存貨名稱'])===productName.value && r['品牌']===this.value).map(r=>r['规格型号']||r['規格型號']).filter(Boolean))].sort();
             specModel.innerHTML = '<option value="">-- 请选择规格型号 --</option>';
             specs.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.textContent = s; specModel.appendChild(opt); });
             specModel.disabled = false;
-            if (specs.length === 1) {
-                specModel.value = specs[0];
-                 specModel.dispatchEvent(new Event('change'));
-            } else {
-                clearProductFields();
-            }
+            if (specs.length === 1) { specModel.value = specs[0]; specModel.dispatchEvent(new Event('change')); } else { clearProductFields(); }
         });
+
         specModel.addEventListener('change', function() {
             if (!this.value || !productName.value || !brand.value) { clearProductFields(); return; }
             const match = catalogData.find(r =>
-                r['存货名称'] === productName.value && r['品牌'] === brand.value && r['规格型号'] === this.value
+                (r['存货名称']||r['存貨名稱']) === productName.value && r['品牌'] === brand.value && (r['规格型号']||r['規格型號']) === this.value
             );
             if (match) {
-                 currentRow = match;
-                unit.value = match['计量单位'] || '';
-                unitSuffix.textContent = match['计量单位'] || '';
-                const refPrice = parseFloat(match['参考单价']);
-                if (!isNaN(refPrice) && refPrice >= 0) {
-                     unitPrice.value = refPrice;
-                    priceHint.textContent = '已自动匹配单价';
-                } else {
-                    unitPrice.value = 0;
-                    priceHint.textContent = '目录未提供单价';
-                 }
-                unitPrice.disabled = true;
-                quantity.disabled = false;
-                quantity.value = '';
-                totalPrice.value = '';
-                updateQuantityHint();
-                checkSubmitReady();
-            } else {
-                clearProductFields();
-            }
+                currentRow = match;
+                const mUnit = match['计量单位'] || match['計量單位'] || '';
+                unit.value = mUnit; unitSuffix.textContent = mUnit;
+                const refPrice = parseFloat(match['参考单价'] || match['參考單價']);
+                if (!isNaN(refPrice) && refPrice >= 0) { unitPrice.value = refPrice; priceHint.textContent = '已自动匹配单价'; } else { unitPrice.value = 0; priceHint.textContent = '目录未提供单价'; }
+                unitPrice.disabled = true; quantity.disabled = false; quantity.value = ''; totalPrice.value = '';
+                updateQuantityHint(); checkSubmitReady();
+            } else { clearProductFields(); }
         });
 
         function clearProductFields() {
-            unit.value = '';
-            quantity.value = ''; unitPrice.value = ''; totalPrice.value = '';
+            unit.value = ''; quantity.value = ''; unitPrice.value = ''; totalPrice.value = '';
             unitSuffix.textContent = ''; quantityHint.textContent = '请先选择产品'; priceHint.textContent = '根据目录自动匹配';
-            currentRow = null;
-            quantity.disabled = true; unitPrice.disabled = true;
-            submitBtn.disabled = true;
+            currentRow = null; quantity.disabled = true; unitPrice.disabled = true; submitBtn.disabled = true;
         }
 
         function updateQuantityHint() {
             if (!currentRow) return;
-            const min = parseInt(currentRow['起订量']) || 0;
-            const mul = parseInt(currentRow['倍数']) || 1;
+            const min = parseInt(currentRow['起订量'] || currentRow['起訂量']) || 0;
+            const mul = parseInt(currentRow['倍数'] || currentRow['倍數']) || 1;
             let hints = [];
             if (min > 0) hints.push(`起订量：${min}`);
             if (mul > 1) hints.push(`倍数：${mul}`);
@@ -477,211 +444,48 @@
             validateQuantity();
         }
 
-        quantity.addEventListener('input', function() {
-            validateQuantity();
-            updateTotalPrice();
-            checkSubmitReady();
-        });
+        quantity.addEventListener('input', function() { validateQuantity(); updateTotalPrice(); checkSubmitReady(); });
+
         function validateQuantity() {
             if (!currentRow) return;
             const q = parseInt(quantity.value);
-            const min = parseInt(currentRow['起订量']) || 0;
-            const mul = parseInt(currentRow['倍数']) || 1;
+            const min = parseInt(currentRow['起订量'] || currentRow['起訂量']) || 0;
+            const mul = parseInt(currentRow['倍数'] || currentRow['倍數']) || 1;
             if (isNaN(q) || q <= 0) { quantityHint.className = 'field-hint'; quantity.classList.remove('error'); return; }
             let errs = [];
             if (min > 0 && q < min) errs.push(`不少于起订量${min}`);
-            if (mul > 1 && q % mul !== 0) {
-                const r = q % mul;
-                errs.push(`需为${mul}的倍数（建议${q-r}或${q+(mul-r)}）`);
-            }
-            if (errs.length) {
-                quantityHint.textContent = errs.join('；');
-                quantityHint.className = 'field-hint error';
-                quantity.classList.add('error');
-            } else {
-                updateQuantityHint();
-                quantityHint.className = 'field-hint success';
-                quantityHint.textContent = '✓ 数量符合要求';
-                quantity.classList.remove('error');
-            }
+            if (mul > 1 && q % mul !== 0) { const r = q % mul; errs.push(`需为${mul}的倍数（建议${q-r}或${q+(mul-r)}）`); }
+            if (errs.length) { quantityHint.textContent = errs.join('；'); quantityHint.className = 'field-hint error'; quantity.classList.add('error'); } 
+            else { updateQuantityHint(); quantityHint.className = 'field-hint success'; quantityHint.textContent = '✓ 数量符合要求'; quantity.classList.remove('error'); }
         }
 
         function checkSubmitReady() {
             if (!currentRow) { submitBtn.disabled = true; return; }
             const q = parseInt(quantity.value);
-            const min = parseInt(currentRow['起订量']) || 0;
-            const mul = parseInt(currentRow['倍数']) || 1;
+            const min = parseInt(currentRow['起订量']||currentRow['起訂量']) || 0;
+            const mul = parseInt(currentRow['倍数']||currentRow['倍數']) || 1;
             const p = parseFloat(unitPrice.value);
-            if (isNaN(q) || q <= 0 || (min > 0 && q < min) || (mul > 1 && q % mul !== 0) || isNaN(p) || p < 0) {
-                submitBtn.disabled = true;
-            } else {
-                submitBtn.disabled = false;
-            }
+            if (isNaN(q) || q <= 0 || (min > 0 && q < min) || (mul > 1 && q % mul !== 0) || isNaN(p) || p < 0) { submitBtn.disabled = true; } else { submitBtn.disabled = false; }
         }
 
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            if (!currentRow || !quantity.value || !orderDate.value || !receiveCompany.value.trim() || !receiveAddress.value.trim()) {
-                showToast('请完整填写所有必填项', 'warning');
-                return;
-             }
+            if (!currentRow || !quantity.value || !orderDate.value || !receiveCompany.value.trim() || !receiveAddress.value.trim()) { showToast('请完整填写所有必填项', 'warning'); return; }
             updateTotalPrice();
             const order = {
-                orderDate: orderDate.value,
-                receiveCompany: receiveCompany.value.trim(),
-                receiveAddress: receiveAddress.value.trim(),
-                 productName: currentRow['存货名称'],
-                brand: currentRow['品牌'],
-                specModel: currentRow['规格型号'],
-                unit: currentRow['计量单位'],
-                quantity: parseInt(quantity.value),
-                unitPrice: parseFloat(unitPrice.value),
-                 totalPrice: parseFloat(totalPrice.value)
+                orderDate: orderDate.value, receiveCompany: receiveCompany.value.trim(), receiveAddress: receiveAddress.value.trim(),
+                productName: currentRow['存货名称'] || currentRow['存貨名稱'], brand: currentRow['品牌'], specModel: currentRow['规格型号'] || currentRow['規格型號'],
+                unit: currentRow['计量单位'] || currentRow['計量單位'], quantity: parseInt(quantity.value), unitPrice: parseFloat(unitPrice.value), totalPrice: parseFloat(totalPrice.value)
             };
-            submittedOrders.push(order);
-            renderOrders();
-            showToast('订单已添加', 'success');
-            productName.value = '';
-            clearAll();
-            populateProductName();
+            submittedOrders.push(order); renderOrders(); showToast('订单已添加', 'success'); productName.value = ''; clearAll(); populateProductName();
         });
+
         function renderOrders() {
-            if (submittedOrders.length === 0) {
-                submittedOrdersBody.innerHTML = '<tr><td colspan="10" style="text-align:center;">暂无提交订单</td></tr>';
-            } else {
-                submittedOrdersBody.innerHTML = submittedOrders.map(o => `
-                    <tr>
-                        <td>${esc(o.orderDate)}</td><td>${esc(o.receiveCompany)}</td><td>${esc(o.receiveAddress)}</td>
-                        <td>${esc(o.productName)}</td><td>${esc(o.brand)}</td><td>${esc(o.specModel)}</td>
-                         <td>${esc(o.unit)}</td><td>${o.quantity}</td><td>${o.unitPrice.toFixed(2)}</td><td>${o.totalPrice.toFixed(2)}</td>
-                    </tr>`).join('');
+            if (submittedOrders.length === 0) { submittedOrdersBody.innerHTML = '<tr><td colspan="10" style="text-align:center;">暂无提交订单</td></tr>'; } 
+            else {
+                submittedOrdersBody.innerHTML = submittedOrders.map(o => `<tr>
+                    <td>${esc(o.orderDate)}</td><td>${esc(o.receiveCompany)}</td><td>${esc(o.receiveAddress)}</td>
+                    <td>${esc(o.productName)}</td><td>${esc(o.brand)}</td><td>${esc(o.specModel)}</td>
+                    <td>${esc(o.unit)}</td><td>${o.quantity}</td><td>${o.unitPrice.toFixed(2)}</td><td>${o.totalPrice.toFixed(2)}</td>
+                </tr>`).join('');
             }
-            orderCountBadge.textContent = `${submittedOrders.length} 笔`;
-        }
-
-        exportOrdersBtn.addEventListener('click', () => {
-            if (submittedOrders.length === 0) { showToast('没有可导出的订单', 'warning'); return; }
-            const wsData = [['下单日期','收货公司','收货地址','存货名称','品牌','规格型号','计量单位','数量','单价','总价']];
-            submittedOrders.forEach(o => wsData.push([o.orderDate, o.receiveCompany, o.receiveAddress, o.productName, o.brand, o.specModel, o.unit, o.quantity, o.unitPrice, o.totalPrice]));
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            const wb = XLSX.utils.book_new();
-             XLSX.utils.book_append_sheet(wb, ws, '采购订单');
-            XLSX.writeFile(wb, `采购订单_${new Date().toISOString().slice(0,10)}.xlsx`);
-        });
-        $('resetBtn').addEventListener('click', () => {
-            productName.value = '';
-            clearAll();
-            populateProductName();
-        });
-        $('adminEntryLink').onclick = () => $('adminLoginModal').classList.remove('hidden');
-        $('closeLoginModal').onclick = () => $('adminLoginModal').classList.add('hidden');
-        $('confirmLoginBtn').onclick = () => {
-            if ($('adminPasswordInput').value === (localStorage.getItem(STORAGE_KEY_ADMIN_PWD)||DEFAULT_PASSWORD)) {
-                $('adminLoginModal').classList.add('hidden');
-                $('adminPanelModal').classList.remove('hidden');
-                updateAdminTable();
-            } else {
-                $('loginError').textContent = '密码错误';
-            }
-        };
-        $('closeAdminPanel').onclick = () => $('adminPanelModal').classList.add('hidden');
-        $('uploadZone').onclick = () => $('catalogFileInput').click();
-        $('catalogFileInput').onchange = function() { if(this.files[0]) handleFile(this.files[0]); };
-        $('downloadTemplate').onclick = (e) => {
-            e.preventDefault();
-            const csv = '存货名称,规格型号,计量单位,品牌,起订量,倍数,参考单价
-打印纸,A4,箱,得力,5,1,120';
-            const blob = new Blob(['﻿'+csv], {type:'text/csv'});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = '目录模板.csv';
-            a.click();
-        };
-        $('clearCatalogBtn').onclick = () => { if(confirm('清空目录？')) { catalogData=[]; saveCatalog(); updateUI(); } };
-        $('changePasswordBtn').onclick = () => $('changePasswordModal').classList.remove('hidden');
-        $('closeChangePasswordModal').onclick = () => $('changePasswordModal').classList.add('hidden');
-        $('saveNewPasswordBtn').onclick = () => {
-            const old = $('oldPasswordInput').value, n = $('newPasswordInput').value, c = $('confirmNewPasswordInput').value;
-            if (old !== (localStorage.getItem(STORAGE_KEY_ADMIN_PWD)||DEFAULT_PASSWORD)) return $('changePwdMsg').textContent='当前密码错误';
-            if (n.length<4 || n!==c) return $('changePwdMsg').textContent='新密码无效或不一致';
-            localStorage.setItem(STORAGE_KEY_ADMIN_PWD, n);
-            $('changePasswordModal').classList.add('hidden');
-            showToast('密码已更新','success');
-        };
-        function handleFile(file) {
-            const ext = file.name.split('.').pop().toLowerCase();
-            if (!['csv','xlsx','xls'].includes(ext)) return showToast('仅支持 CSV/Excel','error');
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                let rows = [];
-                if (ext==='csv') {
-                    rows = parseCSV(e.target.result);
-                } else {
-                    const wb = XLSX.read(new Uint8Array(e.target.result), {type:'array'});
-                    const sheet = wb.Sheets[wb.SheetNames[0]];
-                    const data = XLSX.utils.sheet_to_json(sheet, {header:1,defval:''});
-                    if (data.length<2) return showToast('文件为空','error');
-                    const headers = data[0].map(h=>String(h).trim());
-                    const idx = (kw) => headers.findIndex(h=>h.includes(kw));
-                    const ni = idx('存货名称'), si = idx('规格型号'), ui = idx('计量单位'), bi = idx('品牌');
-                    const mi = idx('起订量'), mui = idx('倍数'), pi = idx('参考单价')>=0?idx('参考单价'):idx('单价');
-                    if (ni<0||si<0||bi<0) return showToast('缺少必要列：存货名称、规格型号、品牌','error');
-                    rows = data.slice(1).map(row => ({
-                        '存货名称': String(row[ni]||'').trim(),
-                        '规格型号': String(row[si]||'').trim(),
-                        '计量单位': ui>=0?String(row[ui]||'').trim():'',
-                        '品牌': String(row[bi]||'').trim(),
-                        '起订量': mi>=0?parseNum(row[mi]):1,
-                        '倍数': mui>=0?parseNum(row[mui]):1,
-                        '参考单价': pi>=0?parseNum(row[pi]):0,
-                    })).filter(r => r['存货名称'] && r['规格型号'] && r['品牌']);
-                }
-                if (rows.length===0) return showToast('无有效数据','error');
-                catalogData = rows.map(r => ({...r, '起订量': r['起订量']>0?r['起订量']:1, '倍数': r['倍数']>0?r['倍数']:1}));
-                saveCatalog(); updateUI(); showToast(`导入成功（${catalogData.length}条）`,'success');
-            };
-            reader[ext==='csv'?'readAsText':'readAsArrayBuffer'](file);
-        }
-
-        function parseCSV(text) {
-            const lines = text.split(/
-?
-/).filter(l=>l.trim());
-            if (lines.length<2) return [];
-            const headers = lines[0].split(',').map(h=>h.trim());
-            const idx = (kw) => headers.findIndex(h=>h.includes(kw));
-            const ni=idx('存货名称'), si=idx('规格型号'), ui=idx('计量单位'), bi=idx('品牌');
-            const mi=idx('起订量'), mui=idx('倍数'), pi=idx('参考单价')>=0?idx('参考单价'):idx('单价');
-            if (ni<0||si<0||bi<0) return [];
-            return lines.slice(1).map(line => {
-                const cols = line.split(',').map(c=>c.trim());
-                return {
-                    '存货名称': cols[ni]||'', '规格型号': cols[si]||'', '计量单位': ui>=0?cols[ui]||'':'',
-                    '品牌': cols[bi]||'', '起订量': mi>=0?parseNum(cols[mi]):1,
-                     '倍数': mui>=0?parseNum(cols[mui]):1, '参考单价': pi>=0?parseNum(cols[pi]):0,
-                };
-            }).filter(r => r['存货名称'] && r['规格型号'] && r['品牌']);
-        }
-
-        function parseNum(v) { const n = parseFloat(String(v).replace(/[^\d.\-]/g,'')); return isNaN(n)?0:n; }
-
-        function showToast(msg, type) {
-            const t = document.createElement('div');
-            t.className = `toast ${type}`; t.textContent = msg;
-            document.getElementById('toastContainer').appendChild(t);
-            setTimeout(() => t.remove(), 3000);
-        }
-
-        function bindEvents() {
-            document.addEventListener('keydown', e => { if(e.key==='Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.classList.add('hidden')); });
-            $('uploadZone').addEventListener('dragover', function(e) { e.preventDefault(); this.style.borderColor = '#1a73e8'; });
-            $('uploadZone').addEventListener('dragleave', function(e) { e.preventDefault(); this.style.borderColor = ''; });
-            $('uploadZone').addEventListener('drop', function(e) {
-                e.preventDefault(); this.style.borderColor = '';
-                if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
-            });
-        }
-
-        init();
-    })();
-</script>
-</body>
-</html>
